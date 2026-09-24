@@ -1,0 +1,5 @@
+@extends('layouts.app')
+@section('title', 'Riwayat antrean')
+@section('content')
+<div class="dash-head"><div><div class="public-kicker">ARSIP PELAYANAN</div><h1>Riwayat antrean</h1></div><form method="get" class="date-filter"><label for="date">Tanggal</label><input id="date" type="date" name="date" value="{{ $date }}"><button class="btn-outline">Tampilkan</button></form></div><div class="table-responsive table-shell"><table class="table align-middle"><thead><tr><th>Nomor</th><th>Nama</th><th>Keperluan</th><th>Daftar</th><th>Dipanggil</th><th>Selesai</th><th>Status</th></tr></thead><tbody>@forelse($queues as $queue)<tr><td class="queue-code">{{ $queue->code }}</td><td>{{ $queue->name }}</td><td>{{ $queue->service }}</td><td>{{ $queue->registered_at->format('H:i') }}</td><td>{{ $queue->called_at?->format('H:i') ?? '—' }}</td><td>{{ $queue->completed_at?->format('H:i') ?? '—' }}</td><td>{{ ucfirst($queue->status) }}</td></tr>@empty<tr><td colspan="7" class="empty-row">Tidak ada data pada tanggal tersebut.</td></tr>@endforelse</tbody></table></div>
+@endsection

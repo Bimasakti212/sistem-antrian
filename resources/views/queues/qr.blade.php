@@ -1,0 +1,3 @@
+@extends('layouts.app')
+@section('title', 'QR pengambilan antrean')
+@section('content')<section class="qr-sheet"><div class="public-kicker">INFORMASI PENGUNJUNG</div><h1>Ambil nomor antrean</h1><p>Arahkan kamera ponsel ke QR Code untuk membuka halaman pengambilan nomor.</p><div class="qr-image"><img alt="QR code menuju halaman antrean" src="https://api.qrserver.com/v1/create-qr-code/?size=280x280&data={{ urlencode(route('queues.public')) }}"></div><strong>SCAN QR CODE UNTUK MENGAMBIL NOMOR ANTREAN</strong><p class="qr-url">{{ route('queues.public') }}</p><button class="btn-outline" onclick="window.print()">Cetak QR Code</button></section>@endsection
