@@ -1,0 +1,9 @@
+@extends('layouts.app')
+@section('title', 'Kelola loket')
+@section('content')
+<div class="dash-head"><div><div class="public-kicker">PENGATURAN PELAYANAN</div><h1>Loket</h1></div></div>
+@if(session('success'))<p class="success-message">{{ session('success') }}</p>@endif
+@if($errors->any())<p class="field-error" role="alert">{{ $errors->first() }}</p>@endif
+<form class="form-panel compact-form" method="post" action="{{ route('queues.counters.store') }}">@csrf<h2>Tambah loket</h2><label class="mt-3" for="counter-name">Nama loket</label><input id="counter-name" class="form-control" name="name" maxlength="80" placeholder="Loket 4" required><label class="mt-3" for="counter-code">Kode</label><input id="counter-code" class="form-control" name="code" maxlength="20" pattern="[A-Za-z0-9_-]+" placeholder="L4" required><button class="btn-primary-wide mt-4">Tambah loket</button></form>
+<div class="table-responsive table-shell mt-4"><table class="table align-middle"><thead><tr><th>Nama</th><th>Kode</th><th>Riwayat antrean</th><th>Status</th><th>Aksi</th></tr></thead><tbody>@foreach($counters as $counter)<tr><td><form id="counter-form-{{ $counter->id }}" method="post" action="{{ route('queues.counters.update', $counter) }}">@csrf @method('PUT')</form><input form="counter-form-{{ $counter->id }}" class="form-control" name="name" maxlength="80" value="{{ $counter->name }}" required></td><td><input form="counter-form-{{ $counter->id }}" class="form-control" name="code" maxlength="20" pattern="[A-Za-z0-9_-]+" value="{{ $counter->code }}" required></td><td>{{ $counter->queues_count }}</td><td><select form="counter-form-{{ $counter->id }}" class="form-select" name="is_active"><option value="1" @selected($counter->is_active)>Aktif</option><option value="0" @selected(!$counter->is_active)>Nonaktif</option></select></td><td><button form="counter-form-{{ $counter->id }}" class="btn-outline">Simpan</button></td></tr>@endforeach</tbody></table></div>
+@endsection
